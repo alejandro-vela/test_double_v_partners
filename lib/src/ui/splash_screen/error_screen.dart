@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../../global_locator.dart';
+import '../../bloc/rick_and_morty/rick_and_morty_bloc.dart';
 import '../../theme/colors.dart';
+import '../../utils/navigation_service.dart';
 import '../../widgets/image/custom_image.dart';
+import 'splash_screen.dart';
 
 class ErrorScreen extends StatelessWidget {
   const ErrorScreen({super.key});
@@ -22,7 +26,13 @@ class ErrorScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  global<RickAndMortyBloc>().add(const GetCharacters(page: 1));
+                  NavigationService.pushAndRemoveUntil(
+                      context: context,
+                      screen: const SplashScreen(),
+                      routeName: SplashScreen.routeName);
+                },
                 child: const Text('Recargar'),
               ),
             ],
