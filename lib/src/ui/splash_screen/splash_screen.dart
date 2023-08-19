@@ -6,7 +6,7 @@ import '../../bloc/rick_and_morty/rick_and_morty_bloc.dart';
 import '../../theme/colors.dart';
 import '../../utils/navigation_service.dart';
 import '../../widgets/image/custom_image.dart';
-import '../home/home_scree.dart';
+import '../home/home_screen.dart';
 import 'error_screen.dart';
 
 class SplashScreen extends StatefulWidget {
