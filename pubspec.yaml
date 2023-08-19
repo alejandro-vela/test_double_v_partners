@@ -13,6 +13,9 @@ dependencies:
   #Console
   logger: ^1.1.0
 
+  # UI
+  google_fonts: ^4.0.3
+
   # Logic
   equatable: ^2.0.5
   bloc: ^8.1.0
