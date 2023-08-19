@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'global_locator.dart';
 import 'src/ui/splash_screen/splash_screen.dart';
 
 Future<void> main() async {
+  setupGlobalLocator();
   runApp(const DVP());
 }
 
