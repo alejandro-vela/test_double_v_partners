@@ -28,11 +28,13 @@ class DefaultAPIRepository implements APIRepository {
         url = Uri.https(
           const String.fromEnvironment('apiUrl'),
           endpoint.path,
+          endpoint.queryParameters,
         );
       } else {
         url = Uri.http(
           const String.fromEnvironment('apiUrl'),
           endpoint.path,
+          endpoint.queryParameters,
         );
       }
     } catch (e) {

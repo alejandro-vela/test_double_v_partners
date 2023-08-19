@@ -7,4 +7,6 @@ abstract class Endpoint {
   Method get method;
 
   Map<String, dynamic> body = {};
+
+  Map<String, dynamic> queryParameters = {};
 }
