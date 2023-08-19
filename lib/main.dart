@@ -1,9 +1,12 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'global_locator.dart';
+import 'src/bloc/observer_bloc.dart';
 import 'src/ui/splash_screen/splash_screen.dart';
 
 Future<void> main() async {
   setupGlobalLocator();
+  Bloc.observer = ObserverBloc();
   runApp(const DVP());
 }
 

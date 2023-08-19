@@ -21,6 +21,7 @@ analyzer:
     # allow self-reference to deprecated members (we do this because otherwise we have
     # to annotate every member in every test, assert, etc, when we deprecate something)
     deprecated_member_use_from_same_package: ignore
+    strict_raw_type: false
 
 linter:
   rules:
@@ -28,7 +29,6 @@ linter:
     # https://github.com/dart-lang/linter/blob/master/example/all.yaml
     - always_declare_return_types
     - always_put_control_body_on_new_line
-    - always_specify_types
     - annotate_overrides
     - avoid_bool_literals_in_conditional_expressions
     - avoid_double_and_int_checks
