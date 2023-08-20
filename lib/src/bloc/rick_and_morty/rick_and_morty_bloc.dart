@@ -90,7 +90,7 @@ class RickAndMortyBloc extends Bloc<RickAndMortyEvent, RickAndMortyState> {
       }
       emit(ResidentsLoaded(residents: response));
     } catch (e) {
-      emit(FinishWithResidentError(message: e.toString()));
+      emit(FinishWithErrorResident(message: e.toString()));
     }
   }
 }

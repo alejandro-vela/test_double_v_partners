@@ -32,7 +32,7 @@ final class FinishWithError extends RickAndMortyState {
   final String message;
 }
 
-final class FinishWithResidentError extends RickAndMortyState {
-  const FinishWithResidentError({required this.message});
+final class FinishWithErrorResident extends RickAndMortyState {
+  const FinishWithErrorResident({required this.message});
   final String message;
 }

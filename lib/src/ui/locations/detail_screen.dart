@@ -42,7 +42,7 @@ class _DetailLocationScreenState extends State<DetailLocationScreen> {
                   child: CustomImage(image: 'assets/static/loading.gif')),
             );
           }
-          if (state is FinishWithResidentError) {
+          if (state is FinishWithErrorResident) {
             return const Scaffold(
               body: Center(
                   child: CustomImage(image: 'assets/static/loading.gif')),
