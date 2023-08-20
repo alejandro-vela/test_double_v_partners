@@ -14,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+  final PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +22,9 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: (index) {
           setState(() {
             _selectedIndex = index;
+            _pageController.animateToPage(index,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.ease);
           });
         },
         currentIndex: _selectedIndex,
@@ -39,16 +43,19 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: () {
-        switch (_selectedIndex) {
-          case 0:
-            return const CharactersScreen();
-          case 1:
-            return const LocationsScreen();
-          case 2:
-            return const EpisodesScreen();
-        }
-      }(),
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        children: const [
+          CharactersScreen(),
+          LocationsScreen(),
+          EpisodesScreen(),
+        ],
+      ),
     );
   }
 }
