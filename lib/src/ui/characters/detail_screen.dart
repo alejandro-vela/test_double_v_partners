@@ -19,37 +19,38 @@ class DetailCharacterScreen extends StatelessWidget {
         backgroundColor: AppColors.secondaryColor,
         title: Text(bloc.characters.results[id].name),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            CustomImage(
-              image: bloc.characters.results[id].image,
-              height: size.height * 0.4,
-              width: size.width,
-              fit: BoxFit.fill,
-            ),
-            Container(
-              width: size.width,
-              margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-              height: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                image: const DecorationImage(
-                  image: AssetImage('assets/static/portal.jpeg'),
-                  fit: BoxFit.cover,
-                  opacity: 0.6,
-                ),
-              ),
-              child: Center(
-                child: Text(
-                  bloc.characters.results[id].name,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
+      body: Column(
+        children: [
+          CustomImage(
+            image: bloc.characters.results[id].image,
+            height: size.height * 0.4,
+            width: size.width,
+            fit: BoxFit.fill,
+          ),
+          Container(
+            width: size.width,
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            height: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              image: const DecorationImage(
+                image: AssetImage('assets/static/portal.jpeg'),
+                fit: BoxFit.cover,
+                opacity: 0.6,
               ),
             ),
-            const SizedBox(height: 10),
-            Expanded(
+            child: Center(
+              child: Text(
+                bloc.characters.results[id].name,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
               child: ListView(
                 children: [
                   ListTile(
@@ -94,8 +95,8 @@ class DetailCharacterScreen extends StatelessWidget {
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
