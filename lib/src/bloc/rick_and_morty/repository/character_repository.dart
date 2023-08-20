@@ -1,9 +1,12 @@
 import '../../../../global_locator.dart';
 import '../../../api/api_repository.dart';
 import 'endpoint/character_endpoint.dart';
+import 'endpoint/location_endpoint.dart';
 
 abstract class CharacterRepository {
   Future<Map<String, dynamic>> getCharacters(int page);
+  Future<Map<String, dynamic>> getLocations(int page);
+  Future<Map<String, dynamic>> getResident(String id);
 }
 
 class CharacterRepositoryDefault extends CharacterRepository {
@@ -11,6 +14,20 @@ class CharacterRepositoryDefault extends CharacterRepository {
   @override
   Future<Map<String, dynamic>> getCharacters(int page) async {
     final endpoint = CharactersEndpoint(page: page);
+    final response = await _api.request(endpoint: endpoint);
+    return response;
+  }
+
+  @override
+  Future<Map<String, dynamic>> getLocations(int page) async {
+    final endpoint = LocationEndpoint(page: page);
+    final response = await _api.request(endpoint: endpoint);
+    return response;
+  }
+
+  @override
+  Future<Map<String, dynamic>> getResident(String id) async {
+    final endpoint = CharacterEndpoint(id: id);
     final response = await _api.request(endpoint: endpoint);
     return response;
   }
