@@ -77,7 +77,7 @@ class _LocationsScreenState extends State<LocationsScreen> {
                     image: DecorationImage(
                       image: AssetImage('assets/static/portal.jpeg'),
                       fit: BoxFit.cover,
-                      opacity: 0.7,
+                      opacity: 0.5,
                     ),
                   ),
                   child: Center(
