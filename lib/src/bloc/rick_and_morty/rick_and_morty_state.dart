@@ -23,6 +23,8 @@ final class ResidentsLoading extends RickAndMortyState {}
 
 final class EpisodesLoading extends RickAndMortyState {}
 
+final class EpisodesLoadingMore extends RickAndMortyState {}
+
 final class ResidentsLoaded extends RickAndMortyState {
   const ResidentsLoaded({required this.residents});
 

@@ -27,6 +27,6 @@ class GetResidents extends RickAndMortyEvent {
 }
 
 class GetEpisodes extends RickAndMortyEvent {
-  const GetEpisodes({required this.page});
-  final int page;
+  const GetEpisodes({this.page});
+  final int? page;
 }

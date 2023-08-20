@@ -104,15 +104,24 @@ class RickAndMortyBloc extends Bloc<RickAndMortyEvent, RickAndMortyState> {
     GetEpisodes event,
     Emitter<RickAndMortyState> emit,
   ) async {
-    emit(EpisodesLoading());
+    if (event.page == null) {
+      emit(EpisodesLoading());
+    } else {
+      emit(EpisodesLoadingMore());
+    }
     try {
-      if (episodes != null) {
+      if (episodes != null && event.page == null) {
         emit(EpisodesLoaded());
         return;
       }
-      final response = await _api.getEpisode(event.page);
+      final response = await _api.getEpisode(event.page ?? 1);
       if (response['statusCode'] == 200) {
-        episodes = EpisodesModel.fromJson(response);
+        if (episodes != null) {
+          episodes!.results.addAll(EpisodesModel.fromJson(response).results);
+          episodes!.info = Info.fromJson(response['info']);
+        } else {
+          episodes = EpisodesModel.fromJson(response);
+        }
         episodesNames = episodes!.results
             .asMap()
             .entries

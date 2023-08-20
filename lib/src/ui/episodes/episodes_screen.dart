@@ -19,10 +19,26 @@ class EpisodesScreen extends StatefulWidget {
 
 class _EpisodesScreenState extends State<EpisodesScreen> {
   RickAndMortyBloc bloc = global<RickAndMortyBloc>();
+  final ScrollController controller = ScrollController();
   @override
   void initState() {
-    bloc.add(const GetEpisodes(page: 1));
+    bloc.add(const GetEpisodes());
+    controller.addListener(() {
+      if (controller.position.pixels == controller.position.maxScrollExtent) {
+        bloc.episodes!.info.next != null
+            ? bloc.add(GetEpisodes(
+                page: int.parse(bloc.episodes!.info.next!.split('=').last)))
+            // ignore: unnecessary_statements
+            : null;
+      }
+    });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -122,6 +138,7 @@ class _EpisodesScreenState extends State<EpisodesScreen> {
                 ),
                 Expanded(
                   child: ListView.builder(
+                    controller: controller,
                     itemCount: bloc.episodes?.results.length,
                     itemBuilder: (context, index) {
                       return ListTile(
