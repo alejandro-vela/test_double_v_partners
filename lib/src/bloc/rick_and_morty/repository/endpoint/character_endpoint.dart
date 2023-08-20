@@ -18,3 +18,17 @@ class CharactersEndpoint extends Endpoint {
         'page': page.toString(),
       };
 }
+
+class CharacterEndpoint extends Endpoint {
+  CharacterEndpoint({
+    required this.id,
+  });
+
+  final String id;
+
+  @override
+  Method get method => Method.get;
+
+  @override
+  String get path => 'api/character/$id';
+}
