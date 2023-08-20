@@ -25,9 +25,27 @@ class _CharactersScreenState extends State<CharactersScreen> {
   FocusNode focusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Column(
         children: [
+          Container(
+            width: size.width,
+            height: 50,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/static/portal.jpeg'),
+                fit: BoxFit.cover,
+                opacity: 0.7,
+              ),
+            ),
+            child: Center(
+              child: Text(
+                'Rick and Morty',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+          ),
           InkWell(
             onTap: () {
               focusNode.unfocus();

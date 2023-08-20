@@ -27,6 +27,7 @@ class _LocationsScreenState extends State<LocationsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return BlocListener(
       listener: (context, state) {
         if (state is FinishWithError) {
@@ -69,6 +70,23 @@ class _LocationsScreenState extends State<LocationsScreen> {
           return SafeArea(
             child: Column(
               children: [
+                Container(
+                  width: size.width,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/static/portal.jpeg'),
+                      fit: BoxFit.cover,
+                      opacity: 0.8,
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Locations',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ),
+                ),
                 InkWell(
                   onTap: () {
                     showSearch(
