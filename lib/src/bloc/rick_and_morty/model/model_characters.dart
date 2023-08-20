@@ -40,10 +40,10 @@ class Info {
         next: json['next'],
         prev: json['prev'],
       );
-  int count;
-  int pages;
-  String next;
-  dynamic prev;
+  int? count;
+  int? pages;
+  String? next;
+  String? prev;
 
   Map<String, dynamic> toJson() => {
         'count': count,
