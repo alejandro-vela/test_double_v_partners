@@ -34,8 +34,8 @@ class _CharactersScreenState extends State<CharactersScreen> {
               showSearch(
                 context: context,
                 delegate: CustomSearchDelegate(
-                  dataList: bloc.charactersNames,
-                ),
+                    dataList: bloc.charactersNames,
+                    typeCard: TypeCard.character),
               );
             },
             child: Container(
