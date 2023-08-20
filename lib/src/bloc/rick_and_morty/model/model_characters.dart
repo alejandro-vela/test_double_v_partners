@@ -130,3 +130,9 @@ class Location {
         'url': url,
       };
 }
+
+class NameIndex {
+  NameIndex({required this.id, required this.name});
+  final int id;
+  final String name;
+}

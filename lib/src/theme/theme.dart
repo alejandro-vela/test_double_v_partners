@@ -10,11 +10,6 @@ ThemeData lightThemeData = ThemeData(
     secondary: AppColors.secondaryColor,
   ),
   textTheme: TextTheme(
-    titleLarge: GoogleFonts.montserrat(
-      color: AppColors.black,
-      fontWeight: FontWeight.w700,
-      fontSize: 32,
-    ),
     titleMedium: GoogleFonts.montserrat(
       color: AppColors.black,
       fontWeight: FontWeight.w600,
