@@ -14,6 +14,8 @@ enum TypeCard {
   episode,
 }
 
+enum SortItem { Name, Gender, Species }
+
 class CharactersScreen extends StatefulWidget {
   const CharactersScreen({super.key});
 
@@ -27,6 +29,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
 
   bool isGrid = false;
   FocusNode focusNode = FocusNode();
+  SortItem? selectedMenu;
 
   @override
   void initState() {
@@ -85,38 +88,81 @@ class _CharactersScreenState extends State<CharactersScreen> {
                       ),
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      focusNode.unfocus();
-                      showSearch(
-                        context: context,
-                        delegate: CustomSearchDelegate(
-                            dataList: bloc.charactersNames,
-                            typeCard: TypeCard.character),
-                      );
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10),
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.grey.shade200,
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          focusNode.unfocus();
+                          showSearch(
+                            context: context,
+                            delegate: CustomSearchDelegate(
+                                dataList: bloc.charactersNames,
+                                typeCard: TypeCard.character),
+                          );
+                        },
+                        child: Container(
+                          width: size.width * 0.8,
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: AppColors.darkGrey.withOpacity(.2),
+                          ),
+                          child: Row(
+                            children: [
+                              const SizedBox(width: 10),
+                              const Icon(Icons.search),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
+                                  'Search',
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      child: Row(
-                        children: [
-                          const SizedBox(width: 10),
-                          const Icon(Icons.search),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: Text(
-                              'Search',
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
+                      PopupMenuButton(
+                        initialValue: selectedMenu,
+                        icon: const Icon(Icons.sort),
+                        onSelected: (item) {
+                          setState(() {
+                            selectedMenu = item;
+                          });
+                        },
+                        itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                          PopupMenuItem(
+                            value: SortItem.Name,
+                            child: Text('Name',
+                                style: Theme.of(context).textTheme.bodyMedium),
+                            onTap: () {
+                              bloc.add(
+                                  const SortCharacters(type: SortItem.Name));
+                            },
+                          ),
+                          PopupMenuItem(
+                            value: SortItem.Gender,
+                            child: Text('Gender',
+                                style: Theme.of(context).textTheme.bodyMedium),
+                            onTap: () {
+                              bloc.add(
+                                  const SortCharacters(type: SortItem.Gender));
+                            },
+                          ),
+                          PopupMenuItem(
+                            value: SortItem.Species,
+                            child: Text('Species',
+                                style: Theme.of(context).textTheme.bodyMedium),
+                            onTap: () {
+                              bloc.add(
+                                  const SortCharacters(type: SortItem.Species));
+                            },
                           ),
                         ],
                       ),
-                    ),
+                    ],
                   ),
                   ListTile(
                     title: const Text(

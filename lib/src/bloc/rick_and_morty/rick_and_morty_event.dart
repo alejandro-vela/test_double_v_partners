@@ -30,3 +30,18 @@ class GetEpisodes extends RickAndMortyEvent {
   const GetEpisodes({this.page});
   final int? page;
 }
+
+class SortCharacters extends RickAndMortyEvent {
+  const SortCharacters({required this.type});
+  final SortItem type;
+}
+
+class SortLocations extends RickAndMortyEvent {
+  const SortLocations({required this.type});
+  final SortItem type;
+}
+
+class SortEpisodes extends RickAndMortyEvent {
+  const SortEpisodes({required this.type});
+  final SortItem type;
+}

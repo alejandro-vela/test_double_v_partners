@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../global_locator.dart';
+import '../../ui/characters/charactes.dart';
 import 'model/model_characters.dart';
 import 'model/model_episodes.dart';
 import 'model/model_locations.dart';
@@ -18,6 +19,9 @@ class RickAndMortyBloc extends Bloc<RickAndMortyEvent, RickAndMortyState> {
     on<GetLocations>(_getLocations);
     on<GetResidents>(_getResidents);
     on<GetEpisodes>(_getEpisodes);
+    on<SortCharacters>(_sortCharacters);
+    on<SortLocations>(_sortLocations);
+    on<SortEpisodes>(_sortEpisodes);
   }
   final _api = global<CharacterRepository>();
   late CharactersModel characters;
@@ -160,5 +164,41 @@ class RickAndMortyBloc extends Bloc<RickAndMortyEvent, RickAndMortyState> {
     } catch (e) {
       emit(FinishWithErrorEpisode(message: e.toString()));
     }
+  }
+
+  void _sortCharacters(
+    SortCharacters event,
+    Emitter<RickAndMortyState> emit,
+  ) {
+    switch (event.type) {
+      case SortItem.Name:
+        characters.results.sort((a, b) => a.name.compareTo(b.name));
+        break;
+      case SortItem.Gender:
+        characters.results.sort((a, b) => a.gender.compareTo(b.gender));
+        break;
+      case SortItem.Species:
+        characters.results.sort((a, b) => a.species.compareTo(b.species));
+        break;
+    }
+    emit(const CharactersLoaded());
+  }
+
+  void _sortLocations(
+    SortLocations event,
+    Emitter<RickAndMortyState> emit,
+  ) {
+    locations!.results.sort((a, b) => a.name.compareTo(b.name));
+
+    emit(LocationsLoaded());
+  }
+
+  void _sortEpisodes(
+    SortEpisodes event,
+    Emitter<RickAndMortyState> emit,
+  ) {
+    episodes!.results.sort((a, b) => a.name.compareTo(b.name));
+
+    emit(EpisodesLoaded());
   }
 }
