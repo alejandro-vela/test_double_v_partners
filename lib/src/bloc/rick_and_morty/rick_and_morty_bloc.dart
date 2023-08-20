@@ -31,11 +31,27 @@ class RickAndMortyBloc extends Bloc<RickAndMortyEvent, RickAndMortyState> {
     GetCharacters event,
     Emitter<RickAndMortyState> emit,
   ) async {
-    emit(CharactersLoading());
+    if (event.page == null) {
+      emit(CharactersLoading());
+    } else {
+      emit(CharactersLoadingMore());
+    }
     try {
-      final response = await _api.getCharacters(event.page);
+      if (event.page == null) {
+        emit(const CharactersLoaded());
+        return;
+      }
+      final response = await _api.getCharacters(event.page ?? 1);
       if (response['statusCode'] == 200) {
-        characters = CharactersModel.fromJson(response);
+        if (event.page == 1) {
+          characters = CharactersModel.fromJson(response);
+        } else {
+          characters.results.addAll(
+            CharactersModel.fromJson(response).results,
+          );
+          characters.info = CharactersModel.fromJson(response).info;
+        }
+
         charactersNames = characters.results
             .asMap()
             .entries

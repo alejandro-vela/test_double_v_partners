@@ -9,7 +9,7 @@ sealed class RickAndMortyEvent extends Equatable {
 
 class GetCharacters extends RickAndMortyEvent {
   const GetCharacters({required this.page});
-  final int page;
+  final int? page;
 }
 
 class GetLocations extends RickAndMortyEvent {

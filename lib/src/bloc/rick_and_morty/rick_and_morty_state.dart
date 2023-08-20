@@ -11,6 +11,8 @@ final class RickAndMortyInitial extends RickAndMortyState {}
 
 final class CharactersLoading extends RickAndMortyState {}
 
+final class CharactersLoadingMore extends RickAndMortyState {}
+
 final class LocationsLoading extends RickAndMortyState {}
 
 final class LocationsLoadingMore extends RickAndMortyState {}
