@@ -139,19 +139,30 @@ class _EpisodesScreenState extends State<EpisodesScreen> {
                 Expanded(
                   child: ListView.builder(
                     controller: controller,
-                    itemCount: bloc.episodes?.results.length,
+                    itemCount: (bloc.episodes?.results.length ?? 0) + 1,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(bloc.episodes?.results[index].name ?? '',
-                            style: Theme.of(context).textTheme.bodyMedium),
-                        onTap: () {
-                          NavigationService.push(
-                              context: context,
-                              screen: DetailScreen(
-                                  id: index, typeCard: TypeCard.episode),
-                              routeName: DetailScreen.routeName);
-                        },
-                      );
+                      return index < (bloc.episodes?.results.length ?? 0)
+                          ? ListTile(
+                              title: Text(
+                                  bloc.episodes?.results[index].name ?? '',
+                                  style:
+                                      Theme.of(context).textTheme.bodyMedium),
+                              onTap: () {
+                                NavigationService.push(
+                                    context: context,
+                                    screen: DetailScreen(
+                                        id: index, typeCard: TypeCard.episode),
+                                    routeName: DetailScreen.routeName);
+                              },
+                            )
+                          : bloc.episodes?.info.next != null
+                              ? const Center(
+                                  child: CustomImage(
+                                      height: 50,
+                                      width: 50,
+                                      image: 'assets/static/loading.gif'),
+                                )
+                              : const Center();
                     },
                   ),
                 ),
