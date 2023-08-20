@@ -18,11 +18,26 @@ class LocationsScreen extends StatefulWidget {
 
 class _LocationsScreenState extends State<LocationsScreen> {
   RickAndMortyBloc bloc = global<RickAndMortyBloc>();
+  final ScrollController controller = ScrollController();
   @override
   void initState() {
     bloc.add(const GetLocations(page: 1));
-
+    controller.addListener(() {
+      if (controller.position.pixels == controller.position.maxScrollExtent) {
+        bloc.locations!.info.next != null
+            ? bloc.add(GetLocations(
+                page: int.parse(bloc.locations!.info.next!.split('=').last)))
+            // ignore: unnecessary_statements
+            : null;
+      }
+    });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -122,19 +137,31 @@ class _LocationsScreenState extends State<LocationsScreen> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: bloc.locations?.results.length,
+                    controller: controller,
+                    itemCount: (bloc.locations?.results.length ?? 0) + 1,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(bloc.locations?.results[index].name ?? '',
-                            style: Theme.of(context).textTheme.bodyMedium),
-                        onTap: () {
-                          NavigationService.push(
-                              context: context,
-                              screen: DetailScreen(
-                                  id: index, typeCard: TypeCard.location),
-                              routeName: DetailScreen.routeName);
-                        },
-                      );
+                      return index < (bloc.locations?.results.length ?? 0)
+                          ? ListTile(
+                              title: Text(
+                                  bloc.locations?.results[index].name ?? '',
+                                  style:
+                                      Theme.of(context).textTheme.bodyMedium),
+                              onTap: () {
+                                NavigationService.push(
+                                    context: context,
+                                    screen: DetailScreen(
+                                        id: index, typeCard: TypeCard.location),
+                                    routeName: DetailScreen.routeName);
+                              },
+                            )
+                          : bloc.locations?.info.next != null
+                              ? const Center(
+                                  child: CustomImage(
+                                      height: 50,
+                                      width: 50,
+                                      image: 'assets/static/loading.gif'),
+                                )
+                              : const Center();
                     },
                   ),
                 ),

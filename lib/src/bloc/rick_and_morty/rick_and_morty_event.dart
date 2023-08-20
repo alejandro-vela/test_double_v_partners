@@ -13,8 +13,8 @@ class GetCharacters extends RickAndMortyEvent {
 }
 
 class GetLocations extends RickAndMortyEvent {
-  const GetLocations({required this.page});
-  final int page;
+  const GetLocations({this.page});
+  final int? page;
 }
 
 class GetResidents extends RickAndMortyEvent {

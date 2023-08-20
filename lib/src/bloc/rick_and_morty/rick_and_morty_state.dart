@@ -13,6 +13,8 @@ final class CharactersLoading extends RickAndMortyState {}
 
 final class LocationsLoading extends RickAndMortyState {}
 
+final class LocationsLoadingMore extends RickAndMortyState {}
+
 final class CharactersLoaded extends RickAndMortyState {
   const CharactersLoaded();
 }

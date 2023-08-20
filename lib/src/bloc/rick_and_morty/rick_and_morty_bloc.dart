@@ -55,15 +55,24 @@ class RickAndMortyBloc extends Bloc<RickAndMortyEvent, RickAndMortyState> {
     GetLocations event,
     Emitter<RickAndMortyState> emit,
   ) async {
-    emit(LocationsLoading());
+    if (event.page == null) {
+      emit(LocationsLoading());
+    } else {
+      emit(LocationsLoadingMore());
+    }
     try {
-      if (locations != null) {
+      if (locations != null && event.page == null) {
         emit(LocationsLoaded());
         return;
       }
-      final response = await _api.getLocations(event.page);
+      final response = await _api.getLocations(event.page ?? 1);
       if (response['statusCode'] == 200) {
-        locations = LocationsModel.fromJson(response);
+        if (locations != null) {
+          locations!.results.addAll(LocationsModel.fromJson(response).results);
+          locations!.info = Info.fromJson(response['info']);
+        } else {
+          locations = LocationsModel.fromJson(response);
+        }
         locationsNames = locations!.results
             .asMap()
             .entries
