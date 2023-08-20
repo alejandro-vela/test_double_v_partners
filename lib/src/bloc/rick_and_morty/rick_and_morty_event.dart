@@ -18,6 +18,15 @@ class GetLocations extends RickAndMortyEvent {
 }
 
 class GetResidents extends RickAndMortyEvent {
-  const GetResidents({required this.locationId});
-  final int locationId;
+  const GetResidents({
+    this.locationId,
+    this.episodeId,
+  });
+  final int? locationId;
+  final int? episodeId;
+}
+
+class GetEpisodes extends RickAndMortyEvent {
+  const GetEpisodes({required this.page});
+  final int page;
 }

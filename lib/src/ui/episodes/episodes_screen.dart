@@ -6,22 +6,22 @@ import '../../bloc/rick_and_morty/rick_and_morty_bloc.dart';
 import '../../utils/navigation_service.dart';
 import '../../widgets/image/custom_image.dart';
 import '../../widgets/search/search.dart';
+
 import '../characters/charactes.dart';
 import '../description/detail_screen.dart';
 
-class LocationsScreen extends StatefulWidget {
-  const LocationsScreen({super.key});
+class EpisodesScreen extends StatefulWidget {
+  const EpisodesScreen({super.key});
 
   @override
-  State<LocationsScreen> createState() => _LocationsScreenState();
+  State<EpisodesScreen> createState() => _EpisodesScreenState();
 }
 
-class _LocationsScreenState extends State<LocationsScreen> {
+class _EpisodesScreenState extends State<EpisodesScreen> {
   RickAndMortyBloc bloc = global<RickAndMortyBloc>();
   @override
   void initState() {
-    bloc.add(const GetLocations(page: 1));
-
+    bloc.add(const GetEpisodes(page: 1));
     super.initState();
   }
 
@@ -30,7 +30,7 @@ class _LocationsScreenState extends State<LocationsScreen> {
     final size = MediaQuery.of(context).size;
     return BlocListener(
       listener: (context, state) {
-        if (state is FinishWithError) {
+        if (state is FinishWithErrorEpisode) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.message),
@@ -42,11 +42,11 @@ class _LocationsScreenState extends State<LocationsScreen> {
       child: BlocBuilder<RickAndMortyBloc, RickAndMortyState>(
         bloc: bloc,
         builder: (context, state) {
-          if (state is LocationsLoading) {
+          if (state is EpisodesLoading) {
             return const Center(
                 child: CustomImage(image: 'assets/static/loading.gif'));
           }
-          if (state is FinishWithError) {
+          if (state is FinishWithErrorEpisode) {
             return Container(
               width: double.infinity,
               height: double.infinity,
@@ -59,7 +59,7 @@ class _LocationsScreenState extends State<LocationsScreen> {
                   ElevatedButton(
                     onPressed: () {
                       global<RickAndMortyBloc>()
-                          .add(const GetLocations(page: 1));
+                          .add(const GetEpisodes(page: 1));
                     },
                     child: const Text('Recargar'),
                   ),
@@ -82,7 +82,7 @@ class _LocationsScreenState extends State<LocationsScreen> {
                   ),
                   child: Center(
                     child: Text(
-                      'Locations',
+                      'Episodes',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
@@ -92,8 +92,8 @@ class _LocationsScreenState extends State<LocationsScreen> {
                     showSearch(
                       context: context,
                       delegate: CustomSearchDelegate(
-                        dataList: bloc.locationsNames,
-                        typeCard: TypeCard.location,
+                        dataList: bloc.episodesNames,
+                        typeCard: TypeCard.episode,
                       ),
                     );
                   },
@@ -122,16 +122,16 @@ class _LocationsScreenState extends State<LocationsScreen> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: bloc.locations?.results.length,
+                    itemCount: bloc.episodes?.results.length,
                     itemBuilder: (context, index) {
                       return ListTile(
-                        title: Text(bloc.locations?.results[index].name ?? '',
+                        title: Text(bloc.episodes?.results[index].name ?? '',
                             style: Theme.of(context).textTheme.bodyMedium),
                         onTap: () {
                           NavigationService.push(
                               context: context,
                               screen: DetailScreen(
-                                  id: index, typeCard: TypeCard.location),
+                                  id: index, typeCard: TypeCard.episode),
                               routeName: DetailScreen.routeName);
                         },
                       );

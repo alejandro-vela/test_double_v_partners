@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../../global_locator.dart';
 import 'model/model_characters.dart';
+import 'model/model_episodes.dart';
 import 'model/model_locations.dart';
 import 'repository/character_repository.dart';
 
@@ -16,12 +17,15 @@ class RickAndMortyBloc extends Bloc<RickAndMortyEvent, RickAndMortyState> {
     on<GetCharacters>(_getCharacters);
     on<GetLocations>(_getLocations);
     on<GetResidents>(_getResidents);
+    on<GetEpisodes>(_getEpisodes);
   }
   final _api = global<CharacterRepository>();
   late CharactersModel characters;
   LocationsModel? locations;
+  EpisodesModel? episodes;
   late List<NameIndex> charactersNames;
   late List<NameIndex> locationsNames;
+  late List<NameIndex> episodesNames;
 
   Future _getCharacters(
     GetCharacters event,
@@ -82,15 +86,45 @@ class RickAndMortyBloc extends Bloc<RickAndMortyEvent, RickAndMortyState> {
     emit(ResidentsLoading());
     final List<ResultModel> response = [];
     try {
-      final residents = locations!.results[event.locationId].residents;
+      final residents = event.locationId != null
+          ? locations!.results[event.locationId!].residents
+          : episodes?.results[event.episodeId!].characters;
 
-      for (final String e in residents.take(8)) {
+      for (final String e in residents!.take(8)) {
         final value = await _api.getResident(e.split('/').last);
         response.add(ResultModel.fromJson(value));
       }
       emit(ResidentsLoaded(residents: response));
     } catch (e) {
       emit(FinishWithErrorResident(message: e.toString()));
+    }
+  }
+
+  Future _getEpisodes(
+    GetEpisodes event,
+    Emitter<RickAndMortyState> emit,
+  ) async {
+    emit(EpisodesLoading());
+    try {
+      if (episodes != null) {
+        emit(EpisodesLoaded());
+        return;
+      }
+      final response = await _api.getEpisode(event.page);
+      if (response['statusCode'] == 200) {
+        episodes = EpisodesModel.fromJson(response);
+        episodesNames = episodes!.results
+            .asMap()
+            .entries
+            .map((entry) => NameIndex(name: entry.value.name, id: entry.key))
+            .toList();
+        emit(EpisodesLoaded());
+      } else {
+        emit(FinishWithErrorEpisode(message: response['error']));
+        return;
+      }
+    } catch (e) {
+      emit(FinishWithErrorEpisode(message: e.toString()));
     }
   }
 }

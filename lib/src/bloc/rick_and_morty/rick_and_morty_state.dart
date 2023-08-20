@@ -21,11 +21,15 @@ final class LocationsLoaded extends RickAndMortyState {}
 
 final class ResidentsLoading extends RickAndMortyState {}
 
+final class EpisodesLoading extends RickAndMortyState {}
+
 final class ResidentsLoaded extends RickAndMortyState {
   const ResidentsLoaded({required this.residents});
 
   final List<ResultModel> residents;
 }
+
+final class EpisodesLoaded extends RickAndMortyState {}
 
 final class FinishWithError extends RickAndMortyState {
   const FinishWithError({required this.message});
@@ -34,5 +38,10 @@ final class FinishWithError extends RickAndMortyState {
 
 final class FinishWithErrorResident extends RickAndMortyState {
   const FinishWithErrorResident({required this.message});
+  final String message;
+}
+
+final class FinishWithErrorEpisode extends RickAndMortyState {
+  const FinishWithErrorEpisode({required this.message});
   final String message;
 }

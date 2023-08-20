@@ -32,3 +32,41 @@ class CharacterEndpoint extends Endpoint {
   @override
   String get path => 'api/character/$id';
 }
+
+class LocationEndpoint extends Endpoint {
+  LocationEndpoint({
+    required this.page,
+  });
+
+  final int page;
+
+  @override
+  Method get method => Method.get;
+
+  @override
+  String get path => 'api/location';
+
+  @override
+  Map<String, dynamic> get queryParameters => {
+        'page': page.toString(),
+      };
+}
+
+class EpisodeEndpoint extends Endpoint {
+  EpisodeEndpoint({
+    required this.page,
+  });
+
+  final int page;
+
+  @override
+  Method get method => Method.get;
+
+  @override
+  String get path => 'api/episode';
+
+  @override
+  Map<String, dynamic> get queryParameters => {
+        'page': page.toString(),
+      };
+}
