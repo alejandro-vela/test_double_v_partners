@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../bloc/rick_and_morty/model/model_characters.dart';
 import '../../ui/characters/charactes.dart';
-import '../../ui/characters/description/detail_screen.dart';
+import '../../ui/description/detail_screen.dart';
 import '../../utils/navigation_service.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
