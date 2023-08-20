@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
 import '../../bloc/rick_and_morty/model/model_characters.dart';
+import '../../ui/characters/charactes.dart';
 import '../../ui/characters/description/detail_screen.dart';
 import '../../utils/navigation_service.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
-  CustomSearchDelegate({required this.dataList});
+  CustomSearchDelegate({
+    required this.dataList,
+    required this.typeCard,
+  });
   final List<NameIndex> dataList;
+  final TypeCard typeCard;
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -56,7 +61,10 @@ class CustomSearchDelegate extends SearchDelegate {
           onTap: () {
             NavigationService.push(
                 context: context,
-                screen: DetailScreen(id: suggestions[i].id),
+                screen: DetailScreen(
+                  id: suggestions[i].id,
+                  typeCard: typeCard,
+                ),
                 routeName: DetailScreen.routeName);
             close(context, null);
           },

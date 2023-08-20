@@ -14,11 +14,11 @@ class CharactersModel {
   factory CharactersModel.fromJson(Map<String, dynamic> json) =>
       CharactersModel(
         info: Info.fromJson(json['info']),
-        results:
-            List<Result>.from(json['results'].map((x) => Result.fromJson(x))),
+        results: List<ResultModel>.from(
+            json['results'].map((x) => ResultModel.fromJson(x))),
       );
   Info info;
-  List<Result> results;
+  List<ResultModel> results;
 
   Map<String, dynamic> toJson() => {
         'info': info.toJson(),
@@ -53,8 +53,8 @@ class Info {
       };
 }
 
-class Result {
-  Result({
+class ResultModel {
+  ResultModel({
     required this.id,
     required this.name,
     required this.status,
@@ -69,7 +69,7 @@ class Result {
     required this.created,
   });
 
-  factory Result.fromJson(Map<String, dynamic> json) => Result(
+  factory ResultModel.fromJson(Map<String, dynamic> json) => ResultModel(
         id: json['id'],
         name: json['name'],
         status: json['status'],

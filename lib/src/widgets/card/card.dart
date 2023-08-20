@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../bloc/rick_and_morty/rick_and_morty_bloc.dart';
+import '../../ui/characters/charactes.dart';
 import '../../ui/characters/description/detail_screen.dart';
 import '../../utils/navigation_service.dart';
 import '../image/custom_image.dart';
@@ -24,7 +25,7 @@ class CustomCards extends StatelessWidget {
       onTap: () {
         NavigationService.push(
             context: context,
-            screen: DetailScreen(id: index),
+            screen: DetailScreen(id: index, typeCard: TypeCard.character),
             routeName: DetailScreen.routeName);
       },
       child: Card(
