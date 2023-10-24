@@ -1,16 +1,31 @@
 # test_double_v_partners
 
-A new Flutter project.
+## _Realizada por Carlos Alejandro Vela Muñoz_
 
-## Getting Started
+Prueba realizada con:
 
-This project is a starting point for a Flutter application.
+- Patron bloc
+- Inyeccion de dependencias 
+- Dart define para variables de entorno
 
-A few resources to get you started if this is your first Flutter project:
+## Como compilar 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- En el archivo api-key.json.tpl eliminar .tpl
+- Agregar la url base
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Metodo de compilación
+- Revisar que en Vscode el archivo *launch.json* este asi:
+ ```bash
+  {
+    "name": "pragma_test",
+    "request": "launch",
+    "type": "dart",
+    "args": ["--dart-define-from-file","api-key.json"] //add this line
+  },
+```
+- Luego podran compilar normalmente con F5
+
+[Video demostrativo](https://youtu.be/J8rZnIcnnow)
+
+
+![Logo](https://doublevpartners.com/wp-content/uploads/2023/05/DVP-01-Principal-Fondo-Oscuro.png)
